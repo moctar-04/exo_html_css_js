@@ -5,8 +5,14 @@ function changerTexte() {
     textchange.innerHTML=" Mouhamed est le chef de groupe ";
     textchange.style.color="blue";
 }
+
 /*exercice 2 */
 
 function afficherMessage() {
-    alert("vous avez une carte d'invitation")
+    alert("vous avez une carte d'invitation");
+}
+
+function changerCouleur() {
+    let colchange=document.querySelector(".carte")
+    colchange.style.color='red';
 }
