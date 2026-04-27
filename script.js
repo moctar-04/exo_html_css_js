@@ -20,50 +20,50 @@ function changerCouleur() {
 /*Exercice 3 */
 
 
-// function envoyer() {
+function envoyer() {
 
-//     let nom = document.getElementById("nom").value;
-//     let age = document.getElementById("age").value;
-//     let pays = document.getElementById("pays").value;
-//     let commentaire = document.getElementById("commentaire").value;
+    let nom = document.getElementById("nom").value;
+    let age = document.getElementById("age").value;
+    let pays = document.getElementById("pays").value;
+    let commentaire = document.getElementById("commentaire").value;
 
-//     // Sexe
-//     let sexe = "";
-//     let radios = document.getElementsByName("sexe");
-//     for (let r of radios) {
-//         if (r.checked) {
-//             sexe = r.value;
-//         }
-//     }
+    // Sexe
+    let sexe = "";
+    let radios = document.getElementsByName("sexe");
+    for (let r of radios) {
+        if (r.checked) {
+            sexe = r.value;
+        }
+    }
 
-//     // Loisirs
-//     let loisirs = [];
-//     let checks = document.getElementsByName("loisir");
-//     for (let c of checks) {
-//         if (c.checked) {
-//             loisirs.push(c.value);
-//         }
-//     }
+    // Loisirs
+    let loisirs = [];
+    let checks = document.getElementsByName("loisir");
+    for (let c of checks) {
+        if (c.checked) {
+            loisirs.push(c.value);
+        }
+    }
     
-//     // Validation
-//     if (nom === "" || age === "" || sexe === "" || pays === "" || commentaire === "") {
-//         alert("Veuillez remplir tous les champs !");
-//         return;
-//     }
+    // Validation
+    if (nom === "" || age === "" || sexe === "" || pays === "" || commentaire === "") {
+        alert("Veuillez remplir tous les champs !");
+        return;
+    }
 
-//     Affichage
-//     document.getElementById("resultat").innerHTML =
-//         "Nom : " + nom + "<br>" +
-//         "Age : " + age + "<br>" +
-//         "Sexe : " + sexe + "<br>" +
-//         "Loisirs : " + loisirs.join(", ") + "<br>" +
-//         "Pays : " + pays + "<br>" +
-//         "Commentaire : " + commentaire;
-// }
-
-function changerPage(page) {
-    document.getElementById("frame").src = page;
+    // Affichage
+    document.getElementById("resultat").innerHTML =
+        "Nom : " + nom + "<br>" +
+        "Age : " + age + "<br>" +
+        "Sexe : " + sexe + "<br>" +
+        "Loisirs : " + loisirs.join(", ") + "<br>" +
+        "Pays : " + pays + "<br>" +
+        "Commentaire : " + commentaire;
 }
+
+// function changerPage(page) {
+//     document.getElementById("frame").src = page;
+// }
 
 /*Exercice 4 */
 
