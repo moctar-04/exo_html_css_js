@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<h2>Formulaire</h2>
+
+<form id="monFormulaire">
+
+    <!-- Nom -->
+    <label>Nom :</label>
+    <input type="text" id="nom" required><br><br>
+
+    <!-- Age -->
+    <label>Âge :</label>
+    <input type="number" id="age"><br><br>
+
+    <!-- Sexe -->
+    <label>Sexe :</label>
+    <input type="radio" name="sexe" value="Homme"> Homme
+    <input type="radio" name="sexe" value="Femme"> Femme
+    <br><br>
+
+    <!-- Loisirs -->
+    <label>Loisirs :</label>
+    <input type="checkbox" name="loisir" value="Sport"> Sport
+    <input type="checkbox" name="loisir" value="Musique"> Musique
+    <input type="checkbox" name="loisir" value="Lecture"> Lecture
+    <br><br>
+
+    <!-- Pays -->
+    <label>Pays :</label>
+    <select id="pays">
+        <option value="">Choisir</option>
+        <option value="Sénégal">Sénégal</option>
+        <option value="France">France</option>
+        <option value="Canada">Canada</option>
+    </select>
+    <br><br>
+
+    <!-- Commentaire -->
+    <label>Commentaire :</label><br>
+    <textarea id="commentaire"></textarea>
+    <br><br>
+
+    <button type="button" onclick="envoyer()">Envoyer</button>
+
+</form>
+
+<h3>Résultat :</h3>
+<div id="resultat"></div>
+
+<br>
+    <a href="../index.html">Retour au menu</a>
+
+
+ <script src="../script.js"></script>
+</body>
+</html>

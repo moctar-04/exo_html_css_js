@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow - Gestion de tâches</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              850: '#151e2e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+  <div id="app" class="container mx-auto px-4 py-8 max-w-6xl">
+    <header class="text-center mb-8">
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+        </svg>
+        <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent">MiniProjet</h1>
+      </div>
+      <p class="text-slate-400">Gestion de tâches et utilisateurs</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Section Utilisateurs -->
+      <section class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            Utilisateurs
+            <span id="userCount" class="bg-indigo-600 text-xs px-2 py-1 rounded-full">0</span>
+          </h2>
+          <button onclick="toggleUserForm()" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Ajouter
+          </button>
+        </div>
+
+        <!-- Formulaire utilisateur -->
+        <div id="userForm" class="hidden bg-slate-850 rounded-xl p-4 mb-6">
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+              <label class="block text-sm text-slate-400 mb-1">Nom</label>
+              <input type="text" id="userNom" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500" placeholder="Nom">
+            </div>
+            <div>
+              <label class="block text-sm text-slate-400 mb-1">Prénom</label>
+              <input type="text" id="userPrenom" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500" placeholder="Prénom">
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="addUser()" class="bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Ajouter</button>
+            <button onclick="toggleUserForm()" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Annuler</button>
+          </div>
+        </div>
+
+        <!-- Formulaire édition utilisateur -->
+        <div id="editUserForm" class="hidden bg-slate-850 rounded-xl p-4 mb-6">
+          <h3 class="text-sm font-medium text-slate-300 mb-3">Modifier l'utilisateur</h3>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+              <label class="block text-sm text-slate-400 mb-1">Nom</label>
+              <input type="text" id="editUserNom" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+              <label class="block text-sm text-slate-400 mb-1">Prénom</label>
+              <input type="text" id="editUserPrenom" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500">
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="saveUserEdit()" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Enregistrer</button>
+            <button onclick="cancelUserEdit()" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Annuler</button>
+          </div>
+        </div>
+
+        <div id="usersList" class="space-y-3 max-h-96 overflow-y-auto">
+          <p class="text-slate-500 text-center py-4">Aucun utilisateur</p>
+        </div>
+      </section>
+
+      <!-- Section Tâches -->
+      <section class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+            Tâches
+            <span id="taskCount" class="bg-violet-600 text-xs px-2 py-1 rounded-full">0</span>
+          </h2>
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-500 text-sm font-medium" id="completedCount">✓ 0 terminées</span>
+          </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="flex flex-wrap gap-3 mb-6">
+          <button onclick="setTaskFilter('all')" id="filterAll" class="filter-btn bg-indigo-600 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">Toutes</button>
+          <button onclick="setTaskFilter('completed')" id="filterCompleted" class="filter-btn bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">Terminées</button>
+          <button onclick="setTaskFilter('pending')" id="filterPending" class="filter-btn bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">Non terminées</button>
+          <select id="userFilter" onchange="renderTasks()" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500">
+            <option value="all">Tous les utilisateurs</option>
+          </select>
+        </div>
+
+        <!-- Formulaire tâche -->
+        <div class="bg-slate-850 rounded-xl p-4 mb-6">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input type="text" id="taskTitle" class="flex-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-violet-500" placeholder="Nouvelle tâche...">
+            <select id="taskUserSelect" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-violet-500">
+              <option value="">Sélectionner un utilisateur</option>
+            </select>
+            <button onclick="addTask()" class="bg-violet-600 hover:bg-violet-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Ajouter</button>
+          </div>
+        </div>
+
+        <div id="tasksList" class="space-y-3 max-h-96 overflow-y-auto">
+          <p class="text-slate-500 text-center py-4">Aucune tâche</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Modal confirmation -->
+  <div id="confirmModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
+    <div class="bg-slate-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+      <h3 class="text-lg font-semibold mb-2">Confirmer la suppression</h3>
+      <p id="confirmMessage" class="text-slate-400 mb-6">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+      <div class="flex gap-3 justify-end">
+        <button onclick="closeConfirmModal()" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Annuler</button>
+        <button onclick="confirmDelete()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Supprimer</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
